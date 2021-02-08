@@ -19,35 +19,10 @@ div {
   padding: 5px;
 }
 
-.nav {
-  grid-area: n;
-  background-color: #98a0a3;
-}
-
-.header {
-  grid-area: h;
-  background-color: #c77905;
-}
-
-.header
-img {
-  height: 50px
-}
-
 #avatar img {
   height: 100px;
 }
 
 #titlepost img {
   width: 100%;
-}
-
-.content {
-  grid-area: c;
-  background-color: #eaddbb;
-}
-
-.bottom {
-  grid-area: b;
-  background-color: #6a6966;
 }
