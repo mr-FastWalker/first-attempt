@@ -13,9 +13,9 @@ const MyPosts = () => {
             <div className={classes.posts}>
                 <h2>My posts</h2>
                 
-                <Post />
-                <Post />
-                <Post />
+                <Post TextPost = 'Привет! Это первый пост' Likes='44'/>
+                <Post TextPost = 'А это второй пост' Likes='56'/>
+                <Post TextPost = 'Третий пост до кучи' Likes='0'/>
                 <Post />
               
             </div>
