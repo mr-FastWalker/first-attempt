@@ -2,15 +2,15 @@ import React from "react";
 import classes from './MyPosts.module.css';
 import Post from './Post/Post.jsx'
 
-const MyPosts = () => {
+const MyPosts = (props) => {
 
-    let TextPostData = [
-        {id:1, textPost:'Привет! Это первый пост', Likes:44},
-        {id:2, textPost:'А это второй пост', Likes:56},
-        {id:3, textPost:'Третий пост до кучи', Likes:8},
-    ];
+    // let TextPostData = [
+    //     {id:1, textPost:'Привет! Это первый пост', Likes:44},
+    //     {id:2, textPost:'А это второй пост', Likes:56},
+    //     {id:3, textPost:'Третий пост до кучи', Likes:8},
+    // ];
 
-    let Posts = TextPostData.map (p => <Post TextPost={p.textPost} Likes={p.Likes}/>);
+    let Posts = props.TextPostData.map (p => <Post TextPost={p.textPost} Likes={p.Likes}/>);
 
     return (
         <div>
