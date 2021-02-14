@@ -4,21 +4,23 @@ import Post from './Post/Post.jsx'
 
 const MyPosts = (props) => {
 
-    // let TextPostData = [
-    //     {id:1, textPost:'Привет! Это первый пост', Likes:44},
-    //     {id:2, textPost:'А это второй пост', Likes:56},
-    //     {id:3, textPost:'Третий пост до кучи', Likes:8},
-    // ];
+    let newPostElement = React.createRef(); //создается ссылка, которую можно использовать ниже для выбора объекта (вместо id)
 
     let Posts = props.TextPostData.map (p => <Post TextPost={p.textPost} Likes={p.Likes}/>);
+
+    let addPost = () => {
+        let text = newPostElement.current.value;
+        props.addPost(text);
+        newPostElement.current.value = '';
+    }
 
     return (
         <div>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
-                    <button>Add post</button>
+                    <button onClick={ addPost }>Add post</button>
             </div>
 
             <div className={classes.posts}>
