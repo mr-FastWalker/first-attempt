@@ -9,16 +9,19 @@ const MyPosts = (props) => {
     let Posts = props.TextPostData.map (p => <Post TextPost={p.textPost} Likes={p.Likes}/>);
 
     let addPost = () => {
-        let text = newPostElement.current.value;
-        props.addPost(text);
-        newPostElement.current.value = '';
+        props.addPost();
     }
+
+    let onPostChange = () => {
+        let text = newPostElement.current.value;
+        props.updateNewPostText(text);
+    };
 
     return (
         <div>
             <div>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/>
                 </div>
                     <button onClick={ addPost }>Add post</button>
             </div>
