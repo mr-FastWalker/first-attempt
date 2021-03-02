@@ -3,7 +3,6 @@ import classes from './MyPosts.module.css';
 import Post from './Post/Post.jsx'
 
 const MyPosts = (props) => {
-
     let newPostElement = React.createRef(); //создается ссылка, которую можно использовать ниже для выбора объекта (вместо id)
 
     let Posts = props.TextPostData.map (p => <Post TextPost={p.textPost} Likes={p.Likes}/>);

@@ -1,11 +1,28 @@
+// import reportWebVitals from './reportWebVitals';
+import ReactDOM from "react-dom";
+import {BrowserRouter} from "react-router-dom";
+import App from "./App";
+import React from "react";
+import store from "./redux/state";
+import './index.css'
 
-import reportWebVitals from './reportWebVitals';
-import state from "./redux/state";
-import {rerenderEntireTree} from "./render";
+let rerenderEntireTree = (state) => {
+    ReactDOM.render(
+        <BrowserRouter>
+            <App state={state}
+                 dispatch={store.dispatch.bind(store)}
+                 updateNewPostText={store.updateNewPostText.bind(store)}
+                 addMessage={store.addMessage.bind(store)}
+                 updateNewMessageText={store.updateNewMessageText.bind(store)}
+            />,
+        </BrowserRouter>,
+        document.getElementById('root')
+    );
+}
 
-// addPost('abrakadabra');
+rerenderEntireTree(store.getState());
 
-rerenderEntireTree(state);
+store.subscribe(rerenderEntireTree);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
