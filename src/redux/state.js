@@ -38,20 +38,20 @@ let store = {
         this._callSubscriber = observer;  // таким образом callback получаем данные (функцию), чтобы не было циклического импорта
     },
 
-    addPost() {
-        let newPost = {
-            id: 4,
-            textPost: this._state.profilePage.newPostText,
-            Likes: 0
-        }
-        this._state.profilePage.TextPostData.push(newPost);
-        this._state.profilePage.newPostText = "";
-        this._callSubscriber(this._state);
-    },
-    updateNewPostText(NewPostText) {
-        this._state.profilePage.newPostText = NewPostText;
-        this._callSubscriber(this._state);
-    },
+    // _addPost() {
+    //     let newPost = {
+    //         id: 4,
+    //         textPost: this._state.profilePage.newPostText,
+    //         Likes: 0
+    //     }
+    //     this._state.profilePage.TextPostData.push(newPost);
+    //     this._state.profilePage.newPostText = "";
+    //     this._callSubscriber(this._state);
+    // },
+    // _updateNewPostText(NewPostText) {
+    //     this._state.profilePage.newPostText = NewPostText;
+    //     this._callSubscriber(this._state);
+    // },
     addMessage() {
         let newMessage = {
             id: 6,
@@ -78,7 +78,7 @@ let store = {
             this._callSubscriber(this._state);
         } else if
         (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.NewPostText;
+            this._state.profilePage.newPostText = NewPostText;
             this._callSubscriber(this._state);
         }
     },
