@@ -1,6 +1,7 @@
 import React from "react";
 import classes from './MyPosts.module.css';
 import Post from './Post/Post.jsx'
+import {addPostActionCreator, onPostChangeActionCreator} from "../../../redux/state";
 
 const MyPosts = (props) => {
     let newPostElement = React.createRef(); //создается ссылка, которую можно использовать ниже для выбора объекта (вместо id)
@@ -8,13 +9,12 @@ const MyPosts = (props) => {
     let Posts = props.TextPostData.map (p => <Post TextPost={p.textPost} Likes={p.Likes}/>);
 
     let addPost = () => {
-        props.dispatch({type: 'ADD-POST'});
+        props.dispatch(addPostActionCreator());
     }
 
     let onPostChange = () => {
         let text = newPostElement.current.value;
-        let action = {type: 'UPDATE-NEW-POST-TEXT', NewPostText: text};
-        props.dispatch(action);
+        props.dispatch(onPostChangeActionCreator(text));
     };
 
     return (

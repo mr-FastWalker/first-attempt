@@ -1,3 +1,8 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+
 let store = {
     _state: {
         profilePage: {
@@ -38,36 +43,9 @@ let store = {
         this._callSubscriber = observer;  // таким образом callback получаем данные (функцию), чтобы не было циклического импорта
     },
 
-    // _addPost() {
-    //     let newPost = {
-    //         id: 4,
-    //         textPost: this._state.profilePage.newPostText,
-    //         Likes: 0
-    //     }
-    //     this._state.profilePage.TextPostData.push(newPost);
-    //     this._state.profilePage.newPostText = "";
-    //     this._callSubscriber(this._state);
-    // },
-    // _updateNewPostText(NewPostText) {
-    //     this._state.profilePage.newPostText = NewPostText;
-    //     this._callSubscriber(this._state);
-    // },
-    addMessage() {
-        let newMessage = {
-            id: 6,
-            text: this._state.DialogsPage.newMessageText
-        }
-        this._state.DialogsPage.messagesData.push(newMessage);
-        this._callSubscriber(this._state);
-        this._state.DialogsPage.newMessageText = "";
-    },
-    updateNewMessageText(newMessageText) {
-        this._state.DialogsPage.newMessageText = newMessageText;
-        this._callSubscriber(this._state);
-    },
     dispatch(action) {  //общий метод для управления стейтом, принимает объект action, имеет тип {type: 'ADD-POST'}
         if
-        (action.type === 'ADD-POST') {
+        (action.type === ADD_POST) {
             let newPost = {
                 id: 4,
                 textPost: this._state.profilePage.newPostText,
@@ -77,13 +55,30 @@ let store = {
             this._state.profilePage.newPostText = "";
             this._callSubscriber(this._state);
         } else if
-        (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = NewPostText;
+        (action.type === UPDATE_NEW_POST_TEXT) {
+            this._state.profilePage.newPostText = action.NewPostText;
+            this._callSubscriber(this._state);
+        } else if
+        (action.type === ADD_MESSAGE) {
+            let newMessage = {
+                id: 6,
+                text: this._state.DialogsPage.newMessageText
+            }
+            this._state.DialogsPage.messagesData.push(newMessage);
+            this._callSubscriber(this._state);
+            this._state.DialogsPage.newMessageText = "";
+        } else if
+        (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+            this._state.DialogsPage.newMessageText = action.newMessageText;
             this._callSubscriber(this._state);
         }
     },
-
 }
+
+export const addPostActionCreator = () => ({type: ADD_POST});
+export const onPostChangeActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, NewPostText: text});
+export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
+export const onMessageChangeActionCreator = (text) => ({type: UPDATE_NEW_MESSAGE_TEXT, newMessageText: text});
 
 export default store;
 
