@@ -1,7 +1,6 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
+import sidebarReducer from "./sidebarReducer";
 
 let store = {
     _state: {
@@ -44,41 +43,14 @@ let store = {
     },
 
     dispatch(action) {  //общий метод для управления стейтом, принимает объект action, имеет тип {type: 'ADD-POST'}
-        if
-        (action.type === ADD_POST) {
-            let newPost = {
-                id: 4,
-                textPost: this._state.profilePage.newPostText,
-                Likes: 0
-            }
-            this._state.profilePage.TextPostData.push(newPost);
-            this._state.profilePage.newPostText = "";
-            this._callSubscriber(this._state);
-        } else if
-        (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.NewPostText;
-            this._callSubscriber(this._state);
-        } else if
-        (action.type === ADD_MESSAGE) {
-            let newMessage = {
-                id: 6,
-                text: this._state.DialogsPage.newMessageText
-            }
-            this._state.DialogsPage.messagesData.push(newMessage);
-            this._callSubscriber(this._state);
-            this._state.DialogsPage.newMessageText = "";
-        } else if
-        (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.DialogsPage.newMessageText = action.newMessageText;
-            this._callSubscriber(this._state);
-        }
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.DialogsPage = dialogsReducer(this._state.DialogsPage, action);
+        this._state.sideBar = sidebarReducer(this._state.sideBar, action);
+
+        this._callSubscriber(this._state);
     },
 }
-
-export const addPostActionCreator = () => ({type: ADD_POST});
-export const onPostChangeActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, NewPostText: text});
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
-export const onMessageChangeActionCreator = (text) => ({type: UPDATE_NEW_MESSAGE_TEXT, newMessageText: text});
 
 export default store;
 
