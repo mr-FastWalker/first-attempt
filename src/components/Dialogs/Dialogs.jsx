@@ -6,8 +6,8 @@ import {addMessageActionCreator, onMessageChangeActionCreator} from "../../redux
 
 const Dialogs = (props) => {
 
-    let DialogElements = props.state.DialogsData.map ( Dialog => <DialogItem name={Dialog.name} DialogId={Dialog.id} avatar={Dialog.avatar}/> );
-    let MessagesElements = props.state.messagesData.map ( message => <Message text={ message.text }/> );
+    let DialogElements = props.state.DialogsPage.DialogsData.map ( Dialog => <DialogItem name={Dialog.name} DialogId={Dialog.id} avatar={Dialog.avatar}/> );
+    let MessagesElements = props.state.DialogsPage.messagesData.map ( message => <Message text={ message.text }/> );
 
     let newMessageElement = React.createRef();
 
@@ -31,7 +31,7 @@ const Dialogs = (props) => {
                 {MessagesElements}
                 <div>
                     <div>
-                        <textarea onChange={onMessageChange} ref={newMessageElement} value={props.state.newMessageText}/>
+                        <textarea onChange={onMessageChange} ref={newMessageElement} value={props.state.DialogsPage.newMessageText}/>
                     </div>
                     <button onClick={ addMessage }>Add message</button>
                 </div>

@@ -4,26 +4,29 @@ import Post from './Post/Post.jsx'
 import {addPostActionCreator, onPostChangeActionCreator} from "../../../redux/profileReducer";
 
 const MyPosts = (props) => {
+
     let newPostElement = React.createRef(); //создается ссылка, которую можно использовать ниже для выбора объекта (вместо id)
 
     let Posts = props.TextPostData.map (p => <Post TextPost={p.textPost} Likes={p.Likes}/>);
 
-    let addPost = () => {
-        props.dispatch(addPostActionCreator());
+    let onAddPost = () => {
+        //props.dispatch(addPostActionCreator());
+        props.addPost();
     }
 
     let onPostChange = () => {
         let text = newPostElement.current.value;
-        props.dispatch(onPostChangeActionCreator(text));
+        props.updateNewPostText(text);
+        //props.dispatch(onPostChangeActionCreator(text));
     };
 
     return (
         <div>
             <div>
                 <div>
-                    <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/>
+                    <textarea onChange={ onPostChange } ref={newPostElement} value={props.newPostText}/>
                 </div>
-                    <button onClick={ addPost }>Add post</button>
+                    <button onClick={ onAddPost }>Add post</button>
             </div>
 
             <div className={classes.posts}>
