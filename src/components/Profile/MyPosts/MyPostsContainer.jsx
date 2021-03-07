@@ -13,7 +13,6 @@ const MyPostsContainer = (props) => {
             addPost={addPost}
             newPostText={props.state.profilePage.newPostText}
             TextPostData={props.state.profilePage.TextPostData}
-            // posts = { props.state.posts }
         />)
 }
 
