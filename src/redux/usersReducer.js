@@ -13,7 +13,7 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.map(u => {
                         if (u.id === action.userId) {
-                            return {...u, flagFollow: !u.flagFollow} // инвертируем флаг юзера, возвращаем копию
+                            return {...u, followed: !u.followed} // инвертируем флаг юзера, возвращаем копию
                         }
                         return u;
                     }
