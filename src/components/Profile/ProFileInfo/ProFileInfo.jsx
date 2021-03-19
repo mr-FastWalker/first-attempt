@@ -4,10 +4,7 @@ import Preloader from "../../Common/Preloader/Preloader";
 import styles from "../../Users/Users.module.css";
 
 const ProFileInfo = (props) => {
-    if (!props.profile) {
-        return <Preloader />
-    }
-
+    if (!props.profile) { return <Preloader /> }
     let work = props.profile.lookingForAJob ? <div>Тема работы актуальна: {props.profile.lookingForAJobDescription}</div> :
         <div>Тема работы не актуальна</div>
     let contacts = props.profile.contacts;
@@ -28,11 +25,31 @@ const ProFileInfo = (props) => {
                 <div>Чуточку о себе:  {props.profile.aboutMe}</div>
                 {work}
                 {/*<div>*/}
-
                 {/*    {contacts.map(p => {*/}
                 {/*        if (p != null) { return <span > {p} </span> }*/}
                 {/*    })}*/}
                 {/*</div>*/}
+                {/*{*/}
+                {/*    "aboutMe": "я круто чувак 1001%",*/}
+                {/*    "contacts": {*/}
+                {/*    "facebook": "facebook.com",*/}
+                {/*    "website": null,*/}
+                {/*    "vk": "vk.com/dimych",*/}
+                {/*    "twitter": "https://twitter.com/@sdf",*/}
+                {/*    "instagram": "instagra.com/sds",*/}
+                {/*    "youtube": null,*/}
+                {/*    "github": "github.com",*/}
+                {/*    "mainLink": null*/}
+                {/*},*/}
+                {/*    "lookingForAJob": true,*/}
+                {/*    "lookingForAJobDescription": "не ищу, а дурачусь",*/}
+                {/*    "fullName": "samurai dimych",*/}
+                {/*    "userId": 2,*/}
+                {/*    "photos": {*/}
+                {/*    "small": "https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0",*/}
+                {/*    "large": "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"*/}
+                {/*}*/}
+                {/*}*/}
             </div>
         </div>
     )
