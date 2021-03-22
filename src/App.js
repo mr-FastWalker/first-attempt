@@ -1,7 +1,7 @@
 import React from "react";
 import Route from "react-router-dom/es/Route";
 import './App.css';
-import Header from "./components/Header/Header";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer";
 import News from "./components/News/News";
@@ -15,7 +15,7 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 const App = (props) => {
     return (
         <div className='app-wrapper'>
-            <Header/>
+            <HeaderContainer />
             <Nav/>
             <div className='app-wrapper-content'>
                 <Route path='/profile/:userId?'

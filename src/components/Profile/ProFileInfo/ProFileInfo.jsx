@@ -1,15 +1,13 @@
 import React from "react";
 import s from './ProFileInfo.module.css';
 import Preloader from "../../Common/Preloader/Preloader";
-import styles from "../../Users/Users.module.css";
 
 const ProFileInfo = (props) => {
     if (!props.profile) { return <Preloader /> }
     let work = props.profile.lookingForAJob ? <div>Тема работы актуальна: {props.profile.lookingForAJobDescription}</div> :
         <div>Тема работы не актуальна</div>
-    let contacts = props.profile.contacts;
+    // let contacts = props.profile.contacts;
 
-    // debugger
     return (
         <div>
             <div>
