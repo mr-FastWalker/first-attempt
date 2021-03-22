@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Users.module.css';
 import userPhoto from '../../assets/images/avatarUserNull.jpg';
 import {NavLink} from "react-router-dom";
+import * as axios from "axios";
 
 let Users = (props) => {
 
@@ -28,11 +29,36 @@ let Users = (props) => {
                     <div>
                         {u.followed ?
                             <button onClick={() => {
-                                props.followSwitch(u.id)
+                                axios
+                                    .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                                        withCredentials: true,
+                                        headers: {
+                                            "API-KEY": "86c8eb20-557c-49dd-8ad3-357ad2bea17a"
+                                        }
+                                    })
+                                    .then(response => {
+                                            if (response.data.resultCode === 0) {
+                                                props.followSwitch(u.id)
+                                            }
+                                        }
+                                    )
                             }}>Unfollow</button> :
                             <button onClick={() => {
-                                props.followSwitch(u.id)
-                            }}>Follow</button>}
+                                axios
+                                    .post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+                                        withCredentials: true,
+                                        headers: {
+                                            "API-KEY": "86c8eb20-557c-49dd-8ad3-357ad2bea17a"
+                                        }
+                                    })
+                                    .then(response => {
+                                            if (response.data.resultCode === 0) {
+                                                props.followSwitch(u.id)
+                                            }
+                                        }
+                                    )
+                            }}>Follow</button>
+                        }
                     </div>
                 </span>
                 <span>
