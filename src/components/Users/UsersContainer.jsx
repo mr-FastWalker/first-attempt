@@ -4,20 +4,19 @@ import {
     followSwitch,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers,
+    setUsers, toggleFollowingInProgress,
     toggleIsFetching
 } from "../../redux/usersReducer";
-import * as axios from "axios";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
-import {getUsers} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.toggleIsFetching(true);
 
-        getUsers(this.props.currentPage, this.props.pageSize)
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(data => {
                     this.props.toggleIsFetching(false);
                     this.props.setUsers(data.items);
@@ -29,7 +28,7 @@ class UsersContainer extends React.Component {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true);
 
-        getUsers(pageNumber, this.props.pageSize)
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
             .then(data => {
                     this.props.toggleIsFetching(false);
                     this.props.setUsers(data.items);
@@ -49,6 +48,8 @@ class UsersContainer extends React.Component {
                     onPageChanged={this.onPageChanged}
                     users={this.props.users}
                     followSwitch={this.props.followSwitch}
+                    toggleFollowingInProgress={this.props.toggleFollowingInProgress}
+                    followingInProgress={this.props.followingInProgress}
                 />
             </>
         )
@@ -63,6 +64,7 @@ let mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress,
     }
 }
 
@@ -88,10 +90,11 @@ let mapStateToProps = (state) => {
 
 export default connect (mapStateToProps,
     {
-    setUsers, //вместо mapStateToProps передаем объект {содержимое = ActionCreator}
-    followSwitch,
-    setCurrentPage,
-    setTotalUsersCount,
-    toggleIsFetching,
+        setUsers, //вместо mapStateToProps передаем объект {содержимое = ActionCreator}
+        followSwitch,
+        setCurrentPage,
+        setTotalUsersCount,
+        toggleIsFetching,
+        toggleFollowingInProgress,
     }
     )(UsersContainer);

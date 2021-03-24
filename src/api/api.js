@@ -8,11 +8,29 @@ const instance = axios.create({
 
 //вспомогательная функция для запросов к API на сервер, выносим из кода в DAL (data access layer)
 
-export const getUsers = (currentPage = 1, pageSize = 10) => {
-    return instance //instance используем вместо axios, он автоматически добавляет настройки к запросам
-        .get(`users?page=${currentPage}&count=${pageSize}`)
-        .then(response => {
-            return response.data //возвращаем не полный response, а только data (тема ""промисы"")
-        });
+export const usersAPI = {
+
+    getUsers(currentPage = 1, pageSize = 10) {
+        return instance //instance используем вместо axios, он автоматически добавляет настройки к запросам
+            .get(`users?page=${currentPage}&count=${pageSize}`)
+            .then(response => {
+                return response.data //возвращаем не полный response, а только data (тема ""промисы"")
+            });
+    },
+
+    getAuth() {
+        return instance
+            .get(`auth/me`)
+            .then(response => {
+                return response.data
+            });
+    },
+
+    getFollow() {
+
+    },
+
 }
+
+
 
