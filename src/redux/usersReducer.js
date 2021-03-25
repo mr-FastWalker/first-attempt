@@ -1,4 +1,7 @@
+import {usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
+// const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
@@ -28,6 +31,17 @@ const usersReducer = (state = initialState, action) => {
                     }
                 ),
             };
+        // case UNFOLLOW:
+        //     return {
+        //         ...state,
+        //         users: state.users.map(u => {
+        //                 if (u.id === action.userId) {
+        //                     return {...u, followed: !u.followed} // инвертируем флаг юзера, возвращаем копию
+        //                 }
+        //                 return u;
+        //             }
+        //         ),
+        // };
         case SET_USERS: {
             return {...state, users: action.users} // добавляем новых пользователей к прежнему массиву
         }
@@ -54,11 +68,67 @@ const usersReducer = (state = initialState, action) => {
     }
 }
 
-export const followSwitch = (userId) => ({type: FOLLOW, userId}); // AC = ActionCreator (сокращаем названия имен)
+// export const followSwitchSuccess = (userId) => ({type: FOLLOW, userId}); // AC = ActionCreator (сокращаем названия имен)
+export const followSuccess = (userId) => ({type: FOLLOW, userId});
+export const unFollowSuccess = (userId) => ({type: FOLLOW, userId});
 export const setUsers = (users) => ({type: SET_USERS, users});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, count: totalUsersCount});
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
 export const toggleFollowingInProgress = (isFetching, userId) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId});
 
+export const getUsers = (currentPage, pageSize) => {   //getUsersThunkCreator
+
+    return (dispatch) => {
+
+        dispatch(toggleIsFetching(true));
+
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(toggleIsFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setTotalUsersCount(data.totalCount));
+            });
+    }
+}
+
+export const follow = (userId) => {   //getFollowThunkCreator
+
+    return (dispatch) => {
+
+        dispatch(toggleFollowingInProgress(true, userId)); //блокируем кнопку на время выполнения запроса
+
+        usersAPI.getFollow(userId)
+
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(followSuccess(userId))
+                }
+            })
+        dispatch(toggleFollowingInProgress(false, userId)); //разблокируем кнопку после запроса
+    }
+}
+
+export const unFollow = (userId) => {   //getUnFollowThunkCreator
+
+    return (dispatch) => {
+
+        dispatch(toggleFollowingInProgress(true, userId)); //блокируем кнопку на время выполнения запроса
+
+        usersAPI.getUnFollow(userId)
+
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unFollowSuccess(userId))
+                }
+            })
+        dispatch(toggleFollowingInProgress(false, userId)); //разблокируем кнопку после запроса
+    }
+}
+
+
 export default usersReducer;
+
+
+
+// reducer - чистая функция, работает СИНХРОННО

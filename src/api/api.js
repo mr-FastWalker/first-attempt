@@ -26,8 +26,14 @@ export const usersAPI = {
             });
     },
 
-    getFollow() {
+    getUnFollow(userId) {
+        return instance
+            .delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
+    },
 
+    getFollow(userId) {
+        return instance
+            .post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
     },
 
 }
