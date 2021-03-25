@@ -17,26 +17,24 @@ export const usersAPI = {
                 return response.data //возвращаем не полный response, а только data (тема ""промисы"")
             });
     },
-
-    getAuth() {
-        return instance
-            .get(`auth/me`)
-            .then(response => {
-                return response.data
-            });
-    },
-
     getUnFollow(userId) {
         return instance
-            .delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
+            .delete(`follow/${userId}`)
     },
-
     getFollow(userId) {
         return instance
-            .post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
+            .post(`follow/${userId}`)
     },
 
+    getProfile(userId) {
+        return instance
+            .get(`profile/${userId}`)
+    },
 }
 
-
+export const authAPI = {
+    getMe() {
+        return instance.get(`auth/me`)
+    },
+}
 
