@@ -1,6 +1,7 @@
 import React from "react";
 import s from './ProFileInfo.module.css';
 import Preloader from "../../Common/Preloader/Preloader";
+import ProfileStatus from "./ProfileStatus";
 
 const ProFileInfo = (props) => {
     if (!props.profile) { return <Preloader /> }
@@ -10,18 +11,24 @@ const ProFileInfo = (props) => {
 
     return (
         <div>
-            <div>
-                <img
-                    className={s.titleimg}
-                    src='https://vologda-poisk.ru/system/Cover/images/000/105/321/big/more-plyazh-i-palmy-dlya-zhiteley-vologdy-rasskazyvaem-podrobnosti_1562555455.jpg'
-                    alt='content title'
-                />
-            </div>
+            {/*<div>*/}
+            {/*    <img*/}
+            {/*        className={s.titleimg}*/}
+            {/*        src='https://vologda-poisk.ru/system/Cover/images/000/105/321/big/more-plyazh-i-palmy-dlya-zhiteley-vologdy-rasskazyvaem-podrobnosti_1562555455.jpg'*/}
+            {/*        alt='content title'*/}
+            {/*    />*/}
+            {/*</div>*/}
+
+            <ProfileStatus status="Просто заглушка"/>
+
             <div className={s.descriptionBlock}>
                 <div>{props.profile.fullName}</div>
                 <img src={props.profile.photos.large} />
                 <div>Чуточку о себе:  {props.profile.aboutMe}</div>
                 {work}
+
+
+
                 {/*<div>*/}
                 {/*    {contacts.map(p => {*/}
                 {/*        if (p != null) { return <span > {p} </span> }*/}
@@ -48,6 +55,8 @@ const ProFileInfo = (props) => {
                 {/*    "large": "https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0"*/}
                 {/*}*/}
                 {/*}*/}
+
+
             </div>
         </div>
     )
