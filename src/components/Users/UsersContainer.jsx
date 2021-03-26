@@ -8,6 +8,7 @@ import {
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class UsersContainer extends React.Component {
 
@@ -51,30 +52,8 @@ let mapStateToProps = (state) => {
     }
 }
 
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         setUsers: (users) => {
-//             dispatch(setUsersAC(users));
-//         },
-//         followSwitch: (userId) => {
-//             dispatch(flagFollowAC(userId));
-//         },
-//         setCurrentPage: (pageNumber) => {
-//             dispatch(setCurrentPageAC(pageNumber));
-//         },
-//         setTotalUsersCount: (totalCount) => {
-//             dispatch(setTotalUsersCountAC(totalCount));
-//         },
-//         toggleIsFetching: (isFetching) => {
-//             dispatch(toggleIsFetchingAC(isFetching));
-//         }
-//     }
-// }
-
-let withRedirect = withAuthRedirect(UsersContainer);
-
-export default connect (mapStateToProps,
-    {                                       //вместо mapStateToProps передаем объект {содержимое = ActionCreator}
-        follow, unFollow, setCurrentPage, toggleFollowingInProgress, getUsers,
-    }
-    )(withRedirect);
+export default compose(
+    connect (mapStateToProps,
+        {follow, unFollow, setCurrentPage, toggleFollowingInProgress, getUsers,}),
+    withAuthRedirect
+)(UsersContainer);

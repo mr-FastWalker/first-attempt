@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {getUserProfile} from "../../redux/profileReducer";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
 
@@ -24,17 +25,12 @@ class ProfileContainer extends React.Component {
     };
 }
 
-// ниже для примера - прямая обертка редиректом вместо HOC
-// let AuthRedirectComponent = (props) => {
-//     if (!this.props.isAuth) return <Redirect to='/login' />
-//     return <ProfileContainer {...props} />
-// } //далее логига с HOC
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
 })
 
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent); //обертка, дает URL в props
-
-export default connect(mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent); // дает state и dispatch to props
+export default compose(
+    connect(mapStateToProps, {getUserProfile}),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer);
